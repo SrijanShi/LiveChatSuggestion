@@ -17,7 +17,8 @@ app.use('/api/chat', chatRoute)
 
 // Serve built client in production
 if (process.env.NODE_ENV === 'production') {
-  const clientDist = path.join(__dirname, '../../client/dist')
+  // Works both locally (../../client/dist) and in Docker (/app/client/dist)
+  const clientDist = path.resolve(__dirname, '../../client/dist')
   app.use(express.static(clientDist))
   app.get('*', (_req, res) => res.sendFile(path.join(clientDist, 'index.html')))
 }
